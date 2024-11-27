@@ -46,6 +46,7 @@ function UpperPage() {
     
     return (
       <div className={classes.root}>
+      <h1>Test App</h1>
         <GridList cellHeight={300} className={classes.gridList} cols={2}>
           {data.outcome.map( item => (
           <div>
