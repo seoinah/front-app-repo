@@ -23,3 +23,15 @@ jobs:
       run: |
         docker build -t ireh17/docker101tutorial:latest .
         docker push ireh17/docker101tutorial:latest
+
+# 매니페스트 파일 업데이트
+    - name: Update Kubernetes manifests
+      run: |
+        git clone https://github.com/seoinah/k8s-manifest-repo.git
+        cd k8s-manifest-repo
+        sed -i 's|image: ireh17/docker101tutorial:.*|image: ireh17/docker101tutorial:latest|' manifests/deployment.yaml
+        git config user.name "seoinah"
+        git config user.email "ireh2650@gmail.com"
+        git add manifests/deployment.yaml
+        git commit -m "Update image to ireh17/docker101tutorial:latest"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/seoinah/k8s-manifest-repo.git
